@@ -1,5 +1,6 @@
-# Mid Term Image Processing UBM
-Image Processing Mid Term at Bunda Mulia University
+# DIP-Tools
+
+Digital Image Processing Tools build using Lazarus IDE.
 
 ```
 Copyright 2020 Jayaku Briliantio
