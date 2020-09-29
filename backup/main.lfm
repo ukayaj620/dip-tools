@@ -1,11 +1,11 @@
 object DIPTools: TDIPTools
-  Left = 450
-  Height = 717
-  Top = 180
-  Width = 1400
+  Left = 432
+  Height = 800
+  Top = 165
+  Width = 1200
   Caption = 'DIPTools'
-  ClientHeight = 717
-  ClientWidth = 1400
+  ClientHeight = 800
+  ClientWidth = 1200
   DesignTimePPI = 120
   LCLVersion = '2.0.10.0'
   object fileGroup: TGroupBox
@@ -16,14 +16,30 @@ object DIPTools: TDIPTools
     Caption = 'File Options'
     ClientHeight = 191
     ClientWidth = 124
-    TabOrder = 3
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Segoe UI Semibold'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+    TabOrder = 2
     object openFileButton: TButton
       Left = 16
       Height = 41
       Top = 9
       Width = 94
       Caption = 'Open'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
       OnClick = openFileButtonClick
+      ParentFont = False
       TabOrder = 0
     end
     object saveFileButton: TButton
@@ -32,7 +48,15 @@ object DIPTools: TDIPTools
       Top = 71
       Width = 94
       Caption = 'Save'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
       OnClick = saveFileButtonClick
+      ParentFont = False
       TabOrder = 1
     end
     object resetButton: TButton
@@ -41,168 +65,254 @@ object DIPTools: TDIPTools
       Top = 135
       Width = 94
       Caption = 'Reset'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
       OnClick = resetButtonClick
+      ParentFont = False
       TabOrder = 2
     end
   end
-  object colorControlPanel: TTabControl
-    Left = 184
-    Height = 200
-    Top = 72
+  object originalImage: TImage
+    Left = 168
+    Height = 350
+    Top = 384
+    Width = 400
+    AutoSize = True
+    Center = True
+  end
+  object targetImage: TImage
+    Left = 712
+    Height = 350
+    Top = 384
+    Width = 400
+    AutoSize = True
+    Center = True
+  end
+  object colorToggle: TToggleBox
+    Left = 32
+    Height = 35
+    Top = 264
+    Width = 110
+    Caption = 'Colors'
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Segoe UI Semibold'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnChange = colorToggleChange
+    ParentFont = False
+    TabOrder = 0
+  end
+  object colorPanel: TPanel
+    Left = 168
+    Height = 296
+    Top = 32
     Width = 950
-    TabOrder = 2
+    BorderWidth = 20
+    BorderStyle = bsSingle
+    ClientHeight = 292
+    ClientWidth = 946
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 3
     Visible = False
     object colorGroup: TGroupBox
       Left = 8
-      Height = 180
-      Top = 15
+      Height = 266
+      Top = 13
       Width = 120
       Caption = 'Color Filters'
-      ClientHeight = 155
+      ClientHeight = 241
       ClientWidth = 116
-      TabOrder = 1
-      Visible = False
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 2
       object redButton: TButton
         Left = 8
-        Height = 36
-        Top = 8
+        Height = 50
+        Top = 13
         Width = 96
         Caption = 'Red'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 0
       end
       object greenButton: TButton
         Left = 8
-        Height = 36
-        Top = 58
+        Height = 50
+        Top = 96
         Width = 96
         Caption = 'Green'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 1
       end
       object blueButton: TButton
         Left = 8
-        Height = 36
-        Top = 108
+        Height = 50
+        Top = 176
         Width = 96
         Caption = 'Blue'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 2
       end
     end
     object grayscaleGroup: TGroupBox
       Left = 136
-      Height = 180
-      Top = 15
-      Width = 247
+      Height = 266
+      Top = 13
+      Width = 136
       Caption = 'Grayscale Filters'
-      ClientHeight = 155
-      ClientWidth = 243
-      TabOrder = 2
-      Visible = False
+      ClientHeight = 241
+      ClientWidth = 132
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 0
       object redGSButton: TButton
         Left = 8
         Height = 47
-        Top = 16
+        Top = 10
         Width = 101
         Caption = 'Red'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 0
       end
       object greenGSButton: TButton
-        Left = 130
+        Left = 8
         Height = 47
-        Top = 16
+        Top = 65
         Width = 101
         Caption = 'Green'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 1
       end
       object blueGSButton: TButton
         Left = 8
         Height = 47
-        Top = 89
+        Top = 120
         Width = 101
         Caption = 'Blue'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 2
       end
       object grayscaleButton: TButton
-        Left = 130
+        Left = 8
         Height = 47
-        Top = 89
+        Top = 175
         Width = 101
         Caption = 'Grayscale'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
         TabOrder = 3
       end
     end
-    object binaryGroup: TGroupBox
-      Left = 392
-      Height = 180
-      Top = 15
-      Width = 544
-      Caption = 'Binary Filters'
-      ClientHeight = 155
-      ClientWidth = 540
-      TabOrder = 3
-      Visible = False
-      object binaryButton: TButton
-        Left = 424
-        Height = 31
-        Top = 0
-        Width = 94
-        Caption = 'Binary'
-        TabOrder = 0
-      end
-      object redBinaryButton: TButton
-        Left = 48
-        Height = 80
-        Top = 58
-        Width = 100
-        Caption = 'Red'
-        TabOrder = 1
-      end
-      object greenBinaryButton: TButton
-        Left = 218
-        Height = 80
-        Top = 58
-        Width = 100
-        Caption = 'Green'
-        TabOrder = 2
-      end
-      object blueBinaryButton: TButton
-        Left = 392
-        Height = 80
-        Top = 58
-        Width = 100
-        Caption = 'Blue'
-        TabOrder = 3
-      end
-      object binaryOptionsPanel: TPanel
+    object binarySettingsGroup: TGroupBox
+      Left = 280
+      Height = 266
+      Top = 13
+      Width = 654
+      Caption = 'Binary Settings'
+      ClientHeight = 241
+      ClientWidth = 650
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 1
+      object binarySettingsPanel: TPanel
         Left = 8
-        Height = 32
-        Top = -1
-        Width = 392
+        Height = 40
+        Top = 8
+        Width = 472
         BevelOuter = bvNone
-        ClientHeight = 32
-        ClientWidth = 392
-        TabOrder = 4
+        ClientHeight = 40
+        ClientWidth = 472
+        TabOrder = 0
         object thresholdLabel: TLabel
           Left = 0
-          Height = 25
+          Height = 31
           Top = 0
-          Width = 112
-          Caption = 'Set Threshold:'
+          Width = 113
+          Caption = 'Threshold:'
           Color = clDefault
           Font.CharSet = ANSI_CHARSET
           Font.Color = clBlack
-          Font.Height = -18
+          Font.Height = -23
           Font.Name = 'Segoe UI'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
+          Font.Style = [fsBold]
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object thresholdTrackbar: TTrackBar
-          Left = 136
-          Height = 31
-          Top = 2
-          Width = 198
+          Left = 120
+          Height = 39
+          Top = 5
+          Width = 280
           Frequency = 15
           Max = 255
           OnChange = thresholdTrackbarChange
@@ -210,10 +320,13 @@ object DIPTools: TDIPTools
           TabOrder = 0
         end
         object thresholdIndicator: TEdit
-          Left = 336
-          Height = 28
-          Top = 2
-          Width = 44
+          Left = 410
+          Height = 20
+          Top = 5
+          Width = 40
+          Alignment = taCenter
+          BorderStyle = bsNone
+          Color = clWhite
           Enabled = False
           Font.CharSet = ANSI_CHARSET
           Font.Color = clBlack
@@ -227,64 +340,614 @@ object DIPTools: TDIPTools
           TabOrder = 1
         end
       end
+      object binaryButton: TButton
+        Left = 488
+        Height = 39
+        Top = 10
+        Width = 107
+        Caption = 'Binary'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 1
+      end
+    end
+    object binaryFiltersGroup: TGroupBox
+      Left = 288
+      Height = 160
+      Top = 104
+      Width = 591
+      Caption = 'Binary Filters'
+      ClientHeight = 135
+      ClientWidth = 587
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 3
+      object binaryRedButton: TButton
+        Left = 24
+        Height = 103
+        Top = 16
+        Width = 158
+        Caption = 'Red'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -27
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 0
+      end
+      object binaryGreenButton: TButton
+        Left = 216
+        Height = 103
+        Top = 16
+        Width = 158
+        Caption = 'Green'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -27
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 1
+      end
+      object binaryBlueButton: TButton
+        Left = 408
+        Height = 103
+        Top = 16
+        Width = 158
+        Caption = 'Blue'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -27
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 2
+      end
     end
   end
-  object originalImage: TImage
-    Left = 32
-    Height = 350
-    Top = 288
-    Width = 600
-    AutoSize = True
-    Center = True
-  end
-  object targetImage: TImage
-    Left = 768
-    Height = 350
-    Top = 288
-    Width = 600
-    AutoSize = True
-    Center = True
-  end
-  object colorToggle: TToggleBox
-    Left = 184
-    Height = 31
-    Top = 32
-    Width = 94
-    Caption = 'Colors'
-    OnChange = colorToggleChange
-    TabOrder = 0
-  end
   object enhanceToggle: TToggleBox
-    Left = 296
-    Height = 31
-    Top = 32
-    Width = 112
+    Left = 32
+    Height = 35
+    Top = 312
+    Width = 110
     Caption = 'Enhancement'
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Segoe UI Semibold'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnChange = enhanceToggleChange
+    ParentFont = False
     TabOrder = 1
   end
-  object enhancementControlPanel: TTabControl
-    Left = 184
-    Height = 200
-    Top = 288
-    Width = 1184
+  object enhancementPanel: TPanel
+    Left = 168
+    Height = 320
+    Top = 344
+    Width = 950
+    BorderWidth = 20
+    BorderStyle = bsSingle
+    ClientHeight = 316
+    ClientWidth = 946
+    Color = clWhite
+    ParentColor = False
     TabOrder = 4
     Visible = False
     object brightnessGroup: TGroupBox
-      Left = 8
-      Height = 184
+      Left = 328
+      Height = 81
       Top = 8
-      Width = 480
-      Caption = 'Brightness Setting'
+      Width = 568
+      Caption = 'Brightness Settings'
+      ClientHeight = 56
+      ClientWidth = 564
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 0
+      object brightnessOptionsPanel: TPanel
+        Left = 8
+        Height = 40
+        Top = 13
+        Width = 420
+        BevelOuter = bvNone
+        ClientHeight = 40
+        ClientWidth = 420
+        TabOrder = 0
+        object brightnessLabel: TLabel
+          Left = 0
+          Height = 25
+          Top = 0
+          Width = 88
+          Caption = 'Brightness'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -18
+          Font.Name = 'Segoe UI Semibold'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object brightnessTrackbar: TTrackBar
+          Left = 104
+          Height = 31
+          Top = 0
+          Width = 248
+          Frequency = 10
+          Max = 100
+          Min = -100
+          OnChange = brightnessTrackbarChange
+          Position = 0
+          TabOrder = 0
+        end
+        object brightnessIndicator: TEdit
+          Left = 352
+          Height = 20
+          Top = 0
+          Width = 50
+          Alignment = taCenter
+          BorderStyle = bsNone
+          Color = clWhite
+          Enabled = False
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          Font.Style = [fsBold, fsItalic]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+      end
+      object brightnessButton: TButton
+        Left = 440
+        Height = 31
+        Top = 8
+        Width = 94
+        Caption = 'Set'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 1
+      end
+    end
+    object contrastGroup: TGroupBox
+      Left = 336
+      Height = 137
+      Top = 104
+      Width = 560
+      Caption = 'Contrast Settings'
+      ClientHeight = 112
+      ClientWidth = 556
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
       TabOrder = 1
+      object contrastLabel: TLabel
+        Left = 10
+        Height = 25
+        Top = 8
+        Width = 75
+        Caption = 'Contrast:'
+        Color = clDefault
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -18
+        Font.Name = 'Segoe UI Semibold'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+      end
+      object contrastTrackbar: TTrackBar
+        Left = 96
+        Height = 31
+        Top = 8
+        Width = 286
+        Max = 255
+        Min = -255
+        OnChange = contrastTrackbarChange
+        Position = 0
+        TabOrder = 0
+      end
+      object contrastIndicator: TEdit
+        Left = 382
+        Height = 20
+        Top = 13
+        Width = 40
+        Alignment = taCenter
+        BorderStyle = bsNone
+        Color = clWhite
+        Enabled = False
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold, fsItalic]
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 2
+      end
+      object gValueLabel: TLabel
+        Left = 10
+        Height = 25
+        Top = 59
+        Width = 17
+        Caption = 'G:'
+        Color = clDefault
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -18
+        Font.Name = 'Segoe UI Semibold'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+      end
+      object gValueTrackbar: TTrackBar
+        Left = 96
+        Height = 31
+        Top = 64
+        Width = 286
+        OnChange = gValueTrackbarChange
+        Position = 0
+        TabOrder = 1
+      end
+      object gValueIndicator: TEdit
+        Left = 382
+        Height = 20
+        Top = 64
+        Width = 40
+        Alignment = taCenter
+        BorderStyle = bsNone
+        Color = clWhite
+        Enabled = False
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold, fsItalic]
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 3
+      end
+      object contrastButton: TButton
+        Left = 432
+        Height = 31
+        Top = 32
+        Width = 94
+        Caption = 'Set'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 4
+      end
+    end
+    object imagealterGroup: TGroupBox
+      Left = 0
+      Height = 302
+      Top = 8
+      Width = 320
+      Caption = 'Smoothing and Sharpening Settings'
+      ClientHeight = 277
+      ClientWidth = 316
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 2
+      object kernelLabel: TLabel
+        Left = 8
+        Height = 23
+        Top = 2
+        Width = 56
+        Caption = 'Kernel:'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -17
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object kernelValue: TEdit
+        Left = 72
+        Height = 28
+        Top = 2
+        Width = 35
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI Semibold'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+      end
+      object colorRadioGroup: TRadioGroup
+        Left = 8
+        Height = 86
+        Top = 40
+        Width = 168
+        AutoFill = True
+        Caption = 'Color Mode'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 61
+        ClientWidth = 164
+        TabOrder = 1
+        object colorRadioButton: TRadioButton
+          Left = 6
+          Height = 31
+          Top = 0
+          Width = 152
+          Caption = 'Colored'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 0
+        end
+        object grayscaleRadioButton: TRadioButton
+          Left = 6
+          Height = 30
+          Top = 31
+          Width = 152
+          Caption = 'Grayscaled'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 1
+        end
+      end
+      object filterRadioGroup: TRadioGroup
+        Left = 8
+        Height = 135
+        Top = 136
+        Width = 168
+        AutoFill = True
+        Caption = 'Pass Filters'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 110
+        ClientWidth = 164
+        TabOrder = 2
+        object LPLRadio: TRadioButton
+          Left = 6
+          Height = 37
+          Top = 0
+          Width = 152
+          Caption = 'Low Pass Filter'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 0
+        end
+        object HPL0Radio: TRadioButton
+          Left = 6
+          Height = 37
+          Top = 37
+          Width = 152
+          Caption = 'High Pass Filter - 0'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 1
+        end
+        object HPL1Radio: TRadioButton
+          Left = 6
+          Height = 36
+          Top = 74
+          Width = 152
+          Caption = 'High Pass Filter - 1'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 2
+        end
+      end
+      object methodRadioGroup: TRadioGroup
+        Left = 192
+        Height = 86
+        Top = 40
+        Width = 120
+        AutoFill = True
+        Caption = 'Methods'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 61
+        ClientWidth = 116
+        TabOrder = 3
+        object correlationRadio: TRadioButton
+          Left = 6
+          Height = 31
+          Top = 0
+          Width = 104
+          Caption = 'Correlation'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 0
+        end
+        object convolutionRadio: TRadioButton
+          Left = 6
+          Height = 30
+          Top = 31
+          Width = 104
+          Caption = 'Convolution'
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          TabOrder = 1
+        end
+      end
+      object executeButton: TButton
+        Left = 192
+        Height = 55
+        Top = 152
+        Width = 110
+        Caption = 'Execute'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 4
+      end
+      object sketchButton: TButton
+        Left = 192
+        Height = 40
+        Top = 216
+        Width = 110
+        Caption = 'Sketch'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 5
+      end
+    end
+    object inverseGroup: TGroupBox
+      Left = 336
+      Height = 62
+      Top = 248
+      Width = 112
+      Caption = 'Inverse'
+      ClientHeight = 37
+      ClientWidth = 108
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+      TabOrder = 3
+      object inverseButton: TButton
+        Left = 10
+        Height = 31
+        Top = 0
+        Width = 94
+        Caption = 'Inverse'
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 0
+      end
     end
   end
   object OpenPictureDialog: TOpenPictureDialog
-    Left = 1263
-    Top = 33
+    Left = 64
+    Top = 368
   end
   object SavePictureDialog: TSavePictureDialog
-    Left = 1263
-    Top = 112
+    Left = 64
+    Top = 448
   end
 end
