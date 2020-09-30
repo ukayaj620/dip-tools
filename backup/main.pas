@@ -14,16 +14,14 @@ type
 
   TDIPTools = class(TForm)
     blueButton: TButton;
-    blueGSButton: TButton;
-    binaryButton: TButton;
+    binaryExecuteButton: TButton;
     binarySettingsPanel: TPanel;
     brightnessGroup: TGroupBox;
-    binaryFiltersGroup: TGroupBox;
-    binaryRedButton: TButton;
-    binaryGreenButton: TButton;
-    binaryBlueButton: TButton;
+    grayscaleExecuteButton: TButton;
     inverseButton: TButton;
     inverseGroup: TGroupBox;
+    binaryRadioGroup: TRadioGroup;
+    grayscaleRadioGroup: TRadioGroup;
     sketchButton: TButton;
     executeButton: TButton;
     HPL0Radio: TRadioButton;
@@ -43,20 +41,17 @@ type
     enhancementPanel: TPanel;
     contrastGroup: TGroupBox;
     colorRadioGroup: TRadioGroup;
-    colorRadioButton: TRadioButton;
-    grayscaleRadioButton: TRadioButton;
+    colormodeRadioButton: TRadioButton;
+    grayscalemodeRadioButton: TRadioButton;
     filterRadioGroup: TRadioGroup;
     LPLRadio: TRadioButton;
     methodRadioGroup: TRadioGroup;
     correlationRadio: TRadioButton;
     convolutionRadio: TRadioButton;
     grayscaleGroup: TGroupBox;
-    grayscaleButton: TButton;
     binarySettingsGroup: TGroupBox;
-    greenGSButton: TButton;
     redButton: TButton;
     resetButton: TButton;
-    redGSButton: TButton;
     OpenPictureDialog: TOpenPictureDialog;
     saveFileButton: TButton;
     openFileButton: TButton;
@@ -80,6 +75,7 @@ type
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
     procedure grayscaleButtonClick(Sender: TObject);
+    procedure grayscaleExecuteButtonClick(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
     procedure greenGSButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
@@ -167,18 +163,8 @@ begin
 end;
 
 procedure TDIPTools.redGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(gray, 0, 0);
-    end;
-  end;
+
 end;
 
 //Save file
@@ -224,7 +210,7 @@ begin
      end;
 end;
 
-procedure TDIPTools.grayscaleButtonClick(Sender: TObject);
+procedure TDIPTools.grayscaleExecuteButtonClick(Sender: TObject);
 var
   x, y: Integer;
   gray: Integer;
@@ -234,7 +220,12 @@ begin
     for x:= 0 to imageWidth-1 do
     begin
       gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(gray, gray, gray);
+      case (grayscaleRadioGroup.ItemIndex) of
+      0: targetImage.Canvas.Pixels[x, y]:= RGB(gray, 0, 0);
+      1: targetImage.Canvas.Pixels[x, y]:= RGB(0, gray, 0);
+      2: targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, gray);
+      3: targetImage.Canvas.Pixels[x, y]:= RGB(gray, gray, gray);
+      end;
     end;
   end;
 end;
@@ -253,18 +244,8 @@ begin
 end;
 
 procedure TDIPTools.greenGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(0, gray, 0);
-    end;
-  end;
+
 end;
 
 //Enhancement Options
@@ -301,18 +282,8 @@ begin
 end;
 
 procedure TDIPTools.blueGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, gray);
-    end;
-  end;
+
 end;
 
 //Trackbars

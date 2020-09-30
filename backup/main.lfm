@@ -1,11 +1,11 @@
 object DIPTools: TDIPTools
-  Left = 221
+  Left = 258
   Height = 960
-  Top = 15
-  Width = 1410
+  Top = 19
+  Width = 1508
   Caption = 'DIPTools'
   ClientHeight = 960
-  ClientWidth = 1410
+  ClientWidth = 1508
   DesignTimePPI = 144
   LCLVersion = '2.0.6.0'
   object fileGroup: TGroupBox
@@ -128,10 +128,10 @@ object DIPTools: TDIPTools
       Left = 10
       Height = 319
       Top = 16
-      Width = 144
+      Width = 240
       Caption = 'Color Filters'
       ClientHeight = 289
-      ClientWidth = 140
+      ClientWidth = 236
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -18
@@ -142,7 +142,7 @@ object DIPTools: TDIPTools
       ParentFont = False
       TabOrder = 2
       object redButton: TButton
-        Left = 10
+        Left = 58
         Height = 60
         Top = 16
         Width = 115
@@ -158,7 +158,7 @@ object DIPTools: TDIPTools
         TabOrder = 0
       end
       object greenButton: TButton
-        Left = 10
+        Left = 58
         Height = 60
         Top = 115
         Width = 115
@@ -174,7 +174,7 @@ object DIPTools: TDIPTools
         TabOrder = 1
       end
       object blueButton: TButton
-        Left = 10
+        Left = 58
         Height = 60
         Top = 211
         Width = 115
@@ -191,13 +191,13 @@ object DIPTools: TDIPTools
       end
     end
     object grayscaleGroup: TGroupBox
-      Left = 163
+      Left = 269
       Height = 319
       Top = 16
-      Width = 163
+      Width = 336
       Caption = 'Grayscale Filters'
       ClientHeight = 289
-      ClientWidth = 159
+      ClientWidth = 332
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -18
@@ -207,79 +207,64 @@ object DIPTools: TDIPTools
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
       TabOrder = 0
-      object redGSButton: TButton
-        Left = 10
-        Height = 56
-        Top = 12
-        Width = 121
-        Caption = 'Red'
+      object grayscaleRadioGroup: TRadioGroup
+        Left = 77
+        Height = 192
+        Top = 10
+        Width = 178
+        AutoFill = True
+        Caption = 'Filter Options'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 162
+        ClientWidth = 174
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
         Font.Height = -18
-        Font.Name = 'Segoe UI'
+        Font.Name = 'Segoe UI Semibold'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
-        OnClick = redGSButtonClick
+        Font.Style = [fsBold, fsItalic]
+        ItemIndex = 3
+        Items.Strings = (
+          'Red'
+          'Green'
+          'Blue'
+          'Grayscale'
+        )
         ParentFont = False
         TabOrder = 0
       end
-      object greenGSButton: TButton
-        Left = 10
-        Height = 56
-        Top = 78
-        Width = 121
-        Caption = 'Green'
+      object grayscaleExecuteButton: TButton
+        Left = 96
+        Height = 52
+        Top = 219
+        Width = 145
+        Caption = 'Execute'
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
-        Font.Height = -18
+        Font.Height = -20
         Font.Name = 'Segoe UI'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
-        OnClick = greenGSButtonClick
+        OnClick = grayscaleExecuteButtonClick
         ParentFont = False
         TabOrder = 1
       end
-      object blueGSButton: TButton
-        Left = 10
-        Height = 56
-        Top = 144
-        Width = 121
-        Caption = 'Blue'
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -18
-        Font.Name = 'Segoe UI'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        OnClick = blueGSButtonClick
-        ParentFont = False
-        TabOrder = 2
-      end
-      object grayscaleButton: TButton
-        Left = 10
-        Height = 56
-        Top = 210
-        Width = 121
-        Caption = 'Grayscale'
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -18
-        Font.Name = 'Segoe UI'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        OnClick = grayscaleButtonClick
-        ParentFont = False
-        TabOrder = 3
-      end
     end
     object binarySettingsGroup: TGroupBox
-      Left = 336
+      Left = 614
       Height = 319
       Top = 16
-      Width = 785
+      Width = 506
       Caption = 'Binary Settings'
       ClientHeight = 289
-      ClientWidth = 781
+      ClientWidth = 502
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -18
@@ -364,12 +349,12 @@ object DIPTools: TDIPTools
           TabOrder = 1
         end
       end
-      object binaryButton: TButton
-        Left = 586
-        Height = 47
-        Top = 12
-        Width = 128
-        Caption = 'Binary'
+      object binaryExecuteButton: TButton
+        Left = 298
+        Height = 60
+        Top = 134
+        Width = 144
+        Caption = 'Execute'
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
         Font.Height = -18
@@ -379,66 +364,35 @@ object DIPTools: TDIPTools
         ParentFont = False
         TabOrder = 1
       end
-    end
-    object binaryFiltersGroup: TGroupBox
-      Left = 346
-      Height = 192
-      Top = 125
-      Width = 709
-      Caption = 'Binary Filters'
-      ClientHeight = 162
-      ClientWidth = 705
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -18
-      Font.Name = 'Segoe UI'
-      Font.Pitch = fpVariable
-      Font.Quality = fqDraft
-      Font.Style = [fsBold, fsItalic]
-      ParentFont = False
-      TabOrder = 3
-      object binaryRedButton: TButton
-        Left = 29
-        Height = 124
-        Top = 19
-        Width = 190
-        Caption = 'Red'
+      object binaryRadioGroup: TRadioGroup
+        Left = 49
+        Height = 221
+        Top = 67
+        Width = 198
+        AutoFill = True
+        Caption = 'Binary Options'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 191
+        ClientWidth = 194
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
-        Font.Height = -32
-        Font.Name = 'Segoe UI'
+        Font.Height = -18
+        Font.Name = 'Segoe UI Semibold'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
-        ParentFont = False
-        TabOrder = 0
-      end
-      object binaryGreenButton: TButton
-        Left = 259
-        Height = 124
-        Top = 19
-        Width = 190
-        Caption = 'Green'
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -32
-        Font.Name = 'Segoe UI'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        ParentFont = False
-        TabOrder = 1
-      end
-      object binaryBlueButton: TButton
-        Left = 490
-        Height = 124
-        Top = 19
-        Width = 190
-        Caption = 'Blue'
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -32
-        Font.Name = 'Segoe UI'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Style = [fsBold, fsItalic]
+        Items.Strings = (
+          'Red'
+          'Green'
+          'Blue'
+          'Black and White'
+        )
         ParentFont = False
         TabOrder = 2
       end
@@ -800,7 +754,7 @@ object DIPTools: TDIPTools
         Font.Style = [fsBold, fsItalic]
         ParentFont = False
         TabOrder = 1
-        object colorRadioButton: TRadioButton
+        object colormodeRadioButton: TRadioButton
           Left = 6
           Height = 37
           Top = 0
@@ -815,7 +769,7 @@ object DIPTools: TDIPTools
           ParentFont = False
           TabOrder = 0
         end
-        object grayscaleRadioButton: TRadioButton
+        object grayscalemodeRadioButton: TRadioButton
           Left = 6
           Height = 36
           Top = 37

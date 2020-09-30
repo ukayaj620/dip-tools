@@ -21,15 +21,7 @@ type
     inverseButton: TButton;
     inverseGroup: TGroupBox;
     binaryRadioGroup: TRadioGroup;
-    binaryBWRadioButton: TRadioButton;
-    binaryRedRadioButton: TRadioButton;
-    binaryGreenRadioButton: TRadioButton;
-    binaryBlueRadioButton: TRadioButton;
     grayscaleRadioGroup: TRadioGroup;
-    grayscaleRedRadioButton: TRadioButton;
-    grayscaleGreenRadioButton: TRadioButton;
-    grayscaleBlueRadioButton: TRadioButton;
-    grayscaleFilterRadioButton: TRadioButton;
     sketchButton: TButton;
     executeButton: TButton;
     HPL0Radio: TRadioButton;
@@ -82,7 +74,7 @@ type
     procedure blueGSButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
-    procedure grayscaleButtonClick(Sender: TObject);
+    procedure grayscaleExecuteButtonClick(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
     procedure greenGSButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
@@ -170,18 +162,8 @@ begin
 end;
 
 procedure TDIPTools.redGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(gray, 0, 0);
-    end;
-  end;
+
 end;
 
 //Save file
@@ -227,7 +209,7 @@ begin
      end;
 end;
 
-procedure TDIPTools.grayscaleButtonClick(Sender: TObject);
+procedure TDIPTools.grayscaleExecuteButtonClick(Sender: TObject);
 var
   x, y: Integer;
   gray: Integer;
@@ -237,7 +219,12 @@ begin
     for x:= 0 to imageWidth-1 do
     begin
       gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(gray, gray, gray);
+      case (grayscaleRadioGroup.ItemIndex) of
+      0: targetImage.Canvas.Pixels[x, y]:= RGB(gray, 0, 0);
+      1: targetImage.Canvas.Pixels[x, y]:= RGB(0, gray, 0);
+      2: targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, gray);
+      3: targetImage.Canvas.Pixels[x, y]:= RGB(gray, gray, gray);
+      end;
     end;
   end;
 end;
@@ -256,18 +243,8 @@ begin
 end;
 
 procedure TDIPTools.greenGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(0, gray, 0);
-    end;
-  end;
+
 end;
 
 //Enhancement Options
@@ -304,18 +281,8 @@ begin
 end;
 
 procedure TDIPTools.blueGSButtonClick(Sender: TObject);
-var
-  x, y: Integer;
-  gray: Integer;
 begin
-  for y:= 0 to imageHeight-1 do
-  begin
-    for x:= 0 to imageWidth-1 do
-    begin
-      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
-      targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, gray);
-    end;
-  end;
+
 end;
 
 //Trackbars
