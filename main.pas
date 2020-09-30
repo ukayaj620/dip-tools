@@ -75,10 +75,13 @@ type
     brightnessTrackbar: TTrackBar;
     contrastTrackbar: TTrackBar;
     gValueTrackbar: TTrackBar;
+    procedure blueButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
+    procedure greenButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
     procedure openFileButtonClick(Sender: TObject);
+    procedure redButtonClick(Sender: TObject);
     procedure resetButtonClick(Sender: TObject);
     procedure saveFileButtonClick(Sender: TObject);
     procedure thresholdTrackbarChange(Sender: TObject);
@@ -138,26 +141,23 @@ begin
     begin
       for x := 0 to originalImage.Width - 1 do
       begin
-        bitmapTempR[x,y] := GetRValue(originalImage.Canvas.Pixels[x,y]);
-        bitmapTempG[x,y] := GetGValue(originalImage.Canvas.Pixels[x,y]);
-        bitmapTempB[x,y] := GetBValue(originalImage.Canvas.Pixels[x,y]);
-
         bitmapR[x,y] := GetRValue(originalImage.Canvas.Pixels[x,y]);
         bitmapG[x,y] := GetGValue(originalImage.Canvas.Pixels[x,y]);
         bitmapB[x,y] := GetBValue(originalImage.Canvas.Pixels[x,y]);
-
-        bitmapR[x,y] := GetRValue(targetImage.Canvas.Pixels[x,y]);
-        bitmapG[x,y] := GetGValue(targetImage.Canvas.Pixels[x,y]);
-        bitmapB[x,y] := GetBValue(targetImage.Canvas.Pixels[x,y]);
       end;
     end;
+  end;
+end;
 
-    for y:=0 to originalImage.Height-1 do
+procedure TDIPTools.redButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
     begin
-      for x:=0 to originalImage.Width-1 do
-      begin
-        originalImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
-      end;
+      targetImage.Canvas.Pixels[x, y]:= RGB(bitmapR[x, y], 0, 0);
     end;
   end;
 end;
@@ -182,7 +182,7 @@ begin
   begin
     for x:=0 to originalImage.Width-1 do
     begin
-      originalImage.Canvas.Pixels[x,y] := RGB(bitmapTempR[x,y], bitmapTempG[x,y], bitmapTempB[x,y]);
+      originalImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
     end;
   end;
 end;
@@ -205,6 +205,19 @@ begin
      end;
 end;
 
+procedure TDIPTools.greenButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      targetImage.Canvas.Pixels[x, y]:= RGB(0, bitmapG[x, y], 0);
+    end;
+  end;
+end;
+
 //Enhancement Options
 procedure TDIPTools.enhanceToggleChange(Sender: TObject);
 begin
@@ -223,6 +236,19 @@ begin
        contrastIndicator.Text:= IntToStr(contrastTrackbar.Position);
        gValueIndicator.Text:= IntToStr(gValueTrackbar.Position);
      end;
+end;
+
+procedure TDIPTools.blueButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, bitmapB[x, y]);
+    end;
+  end;
 end;
 
 //Trackbars
