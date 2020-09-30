@@ -76,12 +76,15 @@ type
     contrastTrackbar: TTrackBar;
     gValueTrackbar: TTrackBar;
     procedure blueButtonClick(Sender: TObject);
+    procedure blueGSButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
+    procedure greenGSButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
     procedure openFileButtonClick(Sender: TObject);
     procedure redButtonClick(Sender: TObject);
+    procedure redGSButtonClick(Sender: TObject);
     procedure resetButtonClick(Sender: TObject);
     procedure saveFileButtonClick(Sender: TObject);
     procedure thresholdTrackbarChange(Sender: TObject);
@@ -153,11 +156,26 @@ procedure TDIPTools.redButtonClick(Sender: TObject);
 var
   x, y: Integer;
 begin
-  for y:= 0 to imageWidth-1 do
+  for y:= 0 to imageHeight-1 do
   begin
-    for x:= 0 to imageHeight-1 do
+    for x:= 0 to imageWidth-1 do
     begin
       targetImage.Canvas.Pixels[x, y]:= RGB(bitmapR[x, y], 0, 0);
+    end;
+  end;
+end;
+
+procedure TDIPTools.redGSButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  gray: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      targetImage.Canvas.Pixels[x, y]:= RGB(gray, 0, 0);
     end;
   end;
 end;
@@ -209,11 +227,26 @@ procedure TDIPTools.greenButtonClick(Sender: TObject);
 var
   x, y: Integer;
 begin
-  for y:= 0 to imageWidth-1 do
+  for y:= 0 to imageHeight-1 do
   begin
-    for x:= 0 to imageHeight-1 do
+    for x:= 0 to imageWidth-1 do
     begin
       targetImage.Canvas.Pixels[x, y]:= RGB(0, bitmapG[x, y], 0);
+    end;
+  end;
+end;
+
+procedure TDIPTools.greenGSButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  gray: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      targetImage.Canvas.Pixels[x, y]:= RGB(0, gray, 0);
     end;
   end;
 end;
@@ -242,11 +275,26 @@ procedure TDIPTools.blueButtonClick(Sender: TObject);
 var
   x, y: Integer;
 begin
-  for y:= 0 to imageWidth-1 do
+  for y:= 0 to imageHeight-1 do
   begin
-    for x:= 0 to imageHeight-1 do
+    for x:= 0 to imageWidth-1 do
     begin
       targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, bitmapB[x, y]);
+    end;
+  end;
+end;
+
+procedure TDIPTools.blueGSButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  gray: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, gray);
     end;
   end;
 end;
