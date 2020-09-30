@@ -29,8 +29,6 @@ type
     thresholdIndicator: TLabel;
     sketchButton: TButton;
     executeButton: TButton;
-    HPL0Radio: TRadioButton;
-    HPL1Radio: TRadioButton;
     kernelValue: TEdit;
     kernelLabel: TLabel;
     brightnessOptionsPanel: TPanel;
@@ -44,14 +42,9 @@ type
     greenButton: TButton;
     enhancementPanel: TPanel;
     contrastGroup: TGroupBox;
-    colorRadioGroup: TRadioGroup;
-    colormodeRadioButton: TRadioButton;
-    grayscalemodeRadioButton: TRadioButton;
+    colorFilterRadioGroup: TRadioGroup;
     filterRadioGroup: TRadioGroup;
-    LPLRadio: TRadioButton;
     methodRadioGroup: TRadioGroup;
-    correlationRadio: TRadioButton;
-    convolutionRadio: TRadioButton;
     grayscaleGroup: TGroupBox;
     binarySettingsGroup: TGroupBox;
     redButton: TButton;
@@ -77,6 +70,7 @@ type
     procedure contrastButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
+    procedure executeButtonClick(Sender: TObject);
     procedure grayscaleExecuteButtonClick(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
@@ -90,6 +84,10 @@ type
     procedure contrastTrackbarChange(Sender: TObject);
   private
     function pixelBoundariesChecker(value: Integer): Integer;
+    procedure initKernel();
+    procedure initPadding();
+    procedure showFilterResult();
+
   public
 
   end;
@@ -104,15 +102,20 @@ var
   bitmapG: array [0..1000, 0..1000] of Byte;
   bitmapB: array [0..1000, 0..1000] of Byte;
 
-  bitmapTempR: array [0..1000, 0..1000] of Byte;
-  bitmapTempG: array [0..1000, 0..1000] of Byte;
-  bitmapTempB: array [0..1000, 0..1000] of Byte;
+  bitmapGray: array[1..1000, 0..1000] of Byte;
 
-  bitmapInversR: array [0..1000, 0..1000] of Byte;
-  bitmapInversG: array [0..1000, 0..1000] of Byte;
-  bitmapInversB: array [0..1000, 0..1000] of Byte;
+  bitmapFilterR: array [0..1000, 0..1000] of Byte;
+  bitmapFilterG: array [0..1000, 0..1000] of Byte;
+  bitmapFilterB: array [0..1000, 0..1000] of Byte;
 
-  bitmapBiner: array[0..1000, 0..1000] of Boolean;
+  bitmapFilterGray: array[1..1000, 0..1000] of Byte;
+
+  paddingR, paddingG, paddingB: array[0..3000, 0..3000] of Double;
+  paddingGray: array[0..3000, 0..3000] of Double;
+
+  kernel: array[0..100, 1..100] of Double;
+
+  kernelSize, kernelHalf: Integer;
 
 implementation
 
@@ -145,6 +148,8 @@ begin
         bitmapR[x,y] := GetRValue(originalImage.Canvas.Pixels[x,y]);
         bitmapG[x,y] := GetGValue(originalImage.Canvas.Pixels[x,y]);
         bitmapB[x,y] := GetBValue(originalImage.Canvas.Pixels[x,y]);
+
+        bitmapGray[x, y]:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
       end;
     end;
   end;
@@ -204,6 +209,131 @@ begin
        enhancementPanel.Visible:= false;
        thresholdIndicator.Caption:= IntToStr(thresholdTrackbar.Position);
      end;
+end;
+
+procedure TDIPTools.executeButtonClick(Sender: TObject);
+var
+  x, y, xK, yK: integer;
+  cR, cG, cB, cGray: double;
+  k, kHalf: Integer;
+begin
+
+  kernelSize:= StrToInt(kernelValue.Text);
+  kernelHalf:= kernelSize div 2;
+
+  k:= kernelSize;
+  kHalf:= kernelHalf;
+
+  initKernel();
+  initPadding();
+
+  if methodRadioGroup.ItemIndex = 0 then
+  begin
+
+    for y:= kHalf to (imageHeight+kHalf) do
+    begin
+      for x:= kHalf to (imageWidth+kHalf) do
+      begin
+
+        if colorFilterRadioGroup.ItemIndex = 0 then
+        begin
+          cR:= 0;
+          cG:= 0;
+          cB:= 0;
+          for yK:= 1 to k do
+          begin
+            for xK:= 1 to k do
+            begin
+              cR:= cR + (paddingR[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernel[xK, yK]);
+              cG:= cG + (paddingG[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernel[xK, yK]);
+              cB:= cB + (paddingB[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernel[xK, yK]);
+            end;
+          end;
+
+          bitmapFilterR[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cR));
+          bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
+          bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
+        end
+        else if colorFilterRadioGroup.ItemIndex = 1 then
+        begin
+          cGray:= 0;
+          for yK:= 1 to k do
+          begin
+            for xK:= 1 to k do
+            begin
+              cGray:= cGray + (paddingGray[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernel[xK, yK]);
+            end;
+          end;
+
+          bitmapFilterGray[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cGray));
+        end;
+      end;
+    end;
+
+  end
+  else if methodRadioGroup.ItemIndex = 1 then
+  begin
+
+    for y:= kHalf to (imageHeight+kHalf) do
+    begin
+      for x:= kHalf to (imageWidth+kHalf) do
+      begin
+
+        if colorFilterRadioGroup.ItemIndex = 0 then
+        begin
+          cR:= 0;
+          cG:= 0;
+          cB:= 0;
+          for yK:= 1 to k do
+          begin
+            for xK:= 1 to k do
+            begin
+              cR:= cR + (paddingR[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernel[xK, yK]);
+              cG:= cG + (paddingG[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernel[xK, yK]);
+              cB:= cB + (paddingB[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernel[xK, yK]);
+            end;
+          end;
+
+          bitmapFilterR[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cR));
+          bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
+          bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
+        end
+        else if colorFilterRadioGroup.ItemIndex = 1 then
+        begin
+          cGray:= 0;
+          for yK:= 1 to k do
+          begin
+            for xK:= 1 to k do
+            begin
+              cGray:= cGray + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernel[xK, yK]);
+            end;
+          end;
+
+          bitmapFilterGray[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cGray));
+        end;
+      end;
+    end;
+
+  end;
+
+  showFilterResult();
+
+end;
+
+procedure TDIPTools.showFilterResult();
+var
+  x, y: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      if colorFilterRadioGroup.ItemIndex = 0 then
+        targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterR[x, y], bitmapFilterG[x, y], bitmapFilterB[x, y])
+      else if colorFilterRadioGroup.ItemIndex = 1 then
+        targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterGray[x, y], bitmapFilterGray[x, y], bitmapFilterGray[x, y]);
+    end;
+  end;
 end;
 
 procedure TDIPTools.grayscaleExecuteButtonClick(Sender: TObject);
@@ -404,6 +534,119 @@ begin
         targetImage.Canvas.Pixels[x, y]:= RGB(255-gray, 255-gray, 255-gray);
     end;
   end;
+end;
+
+procedure TDIPTools.initKernel();
+var
+  x, y: Integer;
+  k, kHalf: Integer;
+begin
+  k:= kernelSize;
+  kHalf:= kernelHalf;
+  if filterRadioGroup.ItemIndex = 0 then
+  begin
+    for y:= 1 to k do
+    begin
+      for x:= 1 to k do
+      begin
+        kernel[x, y]:= 1 / (k * k);
+      end;
+    end;
+  end
+  else
+  begin
+    for y:= 1 to k do
+    begin
+      for x:= 1 to k do
+      begin
+        kernel[x, y]:= -1;
+      end;
+    end;
+    if filterRadioGroup.ItemIndex = 1 then
+      kernel[kHalf, kHalf]:= (k * k) - 1
+    else if filterRadioGroup.ItemIndex = 2 then
+      kernel[kHalf, kHalf]:= (k * k);
+  end;
+end;
+
+procedure TDIPTools.initPadding();
+var
+  x, y, z: integer;
+  k, kHalf: Integer;
+begin
+  k:= kernelSize;
+  kHalf:= kernelHalf;
+  if colorFilterRadioGroup.ItemIndex = 0 then
+  begin
+    for y:= 0 to imageHeight+kHalf  do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingR[0+z, y]:= 255;
+        paddingR[imageWidth+kHalf+z, y]:= 255;
+
+        paddingG[0+z, y]:= 255;
+        paddingG[imageWidth+kHalf+z, y]:= 255;
+
+        paddingB[0+z, y]:= 255;
+        paddingB[imageWidth+kHalf+z, y]:= 255;
+      end;
+    end;
+
+    for x:= 0 to imageWidth+kHalf do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingR[x, 0+z]:= 255;
+        paddingR[x, imageHeight+kHalf+z]:= 255;
+
+        paddingG[x, 0+z]:= 255;
+        paddingG[x, imageHeight+kHalf+z]:= 255;
+
+        paddingB[x, 0+z]:= 255;
+        paddingB[x, imageHeight+kHalf+z]:= 255;
+      end;
+    end;
+
+    for y:= kHalf to (imageHeight+kHalf-1) do
+    begin
+      for x:= kHalf to (imageWidth+kHalf-1) do
+      begin
+        paddingR[x, y]:= bitmapR[x-kHalf, y-kHalf];
+        paddingG[x, y]:= bitmapG[x-kHalf, y-kHalf];
+        paddingB[x, y]:= bitmapB[x-kHalf, y-kHalf];
+      end;
+    end;
+  end
+  else if colorFilterRadioGroup.ItemIndex = 1 then
+  begin
+    for y:= 0 to imageHeight+kHalf do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingGray[0+z, y]:= 255;
+        paddingGray[imageWidth+kHalf+z, y]:= 255;
+      end;
+    end;
+
+    for x:= 0 to imageWidth+kHalf do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingGray[x, 0+z]:= 255;
+        paddingGray[x, imageHeight+kHalf+z]:= 255;
+      end;
+    end;
+
+    for y:= kHalf to (imageHeight+kHalf-1) do
+    begin
+      for x:= kHalf to (imageWidth+kHalf-1) do
+      begin
+        paddingGray[x, y]:= bitmapGray[x-kHalf, y-kHalf];
+      end;
+    end;
+  end;
+
 end;
 
 end.

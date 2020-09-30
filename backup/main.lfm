@@ -592,8 +592,9 @@ object DIPTools: TDIPTools
         Height = 37
         Top = 77
         Width = 343
+        Min = 1
         OnChange = gValueTrackbarChange
-        Position = 0
+        Position = 1
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
         Font.Height = -18
@@ -685,7 +686,7 @@ object DIPTools: TDIPTools
         ParentFont = False
         TabOrder = 0
       end
-      object colorRadioGroup: TRadioGroup
+      object colorFilterRadioGroup: TRadioGroup
         Left = 10
         Height = 103
         Top = 48
@@ -708,38 +709,13 @@ object DIPTools: TDIPTools
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold, fsItalic]
+        ItemIndex = 0
+        Items.Strings = (
+          'Color'
+          'Monochrome'
+        )
         ParentFont = False
         TabOrder = 1
-        object colormodeRadioButton: TRadioButton
-          Left = 6
-          Height = 37
-          Top = 0
-          Width = 186
-          Caption = 'Colored'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 0
-        end
-        object grayscalemodeRadioButton: TRadioButton
-          Left = 6
-          Height = 36
-          Top = 37
-          Width = 186
-          Caption = 'Grayscaled'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 1
-        end
       end
       object filterRadioGroup: TRadioGroup
         Left = 10
@@ -764,53 +740,14 @@ object DIPTools: TDIPTools
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold, fsItalic]
+        ItemIndex = 0
+        Items.Strings = (
+          'Low Pass Filter'
+          'High Pass Filter - 0'
+          'High Pass Filter - 1'
+        )
         ParentFont = False
         TabOrder = 2
-        object LPLRadio: TRadioButton
-          Left = 6
-          Height = 44
-          Top = 0
-          Width = 186
-          Caption = 'Low Pass Filter'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 0
-        end
-        object HPL0Radio: TRadioButton
-          Left = 6
-          Height = 44
-          Top = 44
-          Width = 186
-          Caption = 'High Pass Filter - 0'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 1
-        end
-        object HPL1Radio: TRadioButton
-          Left = 6
-          Height = 44
-          Top = 88
-          Width = 186
-          Caption = 'High Pass Filter - 1'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 2
-        end
       end
       object methodRadioGroup: TRadioGroup
         Left = 230
@@ -835,38 +772,13 @@ object DIPTools: TDIPTools
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold, fsItalic]
+        ItemIndex = 1
+        Items.Strings = (
+          'Correlation'
+          'Convolution'
+        )
         ParentFont = False
         TabOrder = 3
-        object correlationRadio: TRadioButton
-          Left = 6
-          Height = 37
-          Top = 0
-          Width = 128
-          Caption = 'Correlation'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 0
-        end
-        object convolutionRadio: TRadioButton
-          Left = 6
-          Height = 36
-          Top = 37
-          Width = 128
-          Caption = 'Convolution'
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -18
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          ParentFont = False
-          TabOrder = 1
-        end
       end
       object executeButton: TButton
         Left = 230
@@ -880,6 +792,7 @@ object DIPTools: TDIPTools
         Font.Name = 'Segoe UI'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
+        OnClick = executeButtonClick
         ParentFont = False
         TabOrder = 4
       end
