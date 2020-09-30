@@ -22,6 +22,7 @@ type
     inverseGroup: TGroupBox;
     binaryRadioGroup: TRadioGroup;
     grayscaleRadioGroup: TRadioGroup;
+    thresholdIndicator: TLabel;
     sketchButton: TButton;
     executeButton: TButton;
     HPL0Radio: TRadioButton;
@@ -61,7 +62,6 @@ type
     targetImage: TImage;
     colorToggle: TToggleBox;
     enhanceToggle: TToggleBox;
-    thresholdIndicator: TEdit;
     brightnessIndicator: TEdit;
     contrastIndicator: TEdit;
     thresholdLabel: TLabel;
@@ -70,18 +70,15 @@ type
     brightnessTrackbar: TTrackBar;
     contrastTrackbar: TTrackBar;
     gValueTrackbar: TTrackBar;
+    procedure binaryExecuteButtonClick(Sender: TObject);
     procedure blueButtonClick(Sender: TObject);
-    procedure blueGSButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
-    procedure grayscaleButtonClick(Sender: TObject);
     procedure grayscaleExecuteButtonClick(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
-    procedure greenGSButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
     procedure openFileButtonClick(Sender: TObject);
     procedure redButtonClick(Sender: TObject);
-    procedure redGSButtonClick(Sender: TObject);
     procedure resetButtonClick(Sender: TObject);
     procedure saveFileButtonClick(Sender: TObject);
     procedure thresholdTrackbarChange(Sender: TObject);
@@ -162,11 +159,6 @@ begin
   end;
 end;
 
-procedure TDIPTools.redGSButtonClick(Sender: TObject);
-begin
-
-end;
-
 //Save file
 procedure TDIPTools.saveFileButtonClick(Sender: TObject);
 begin
@@ -206,7 +198,7 @@ begin
      begin
        colorPanel.Visible:= true;
        enhancementPanel.Visible:= false;
-       thresholdIndicator.Text:= IntToStr(thresholdTrackbar.Position);
+       thresholdIndicator.Caption:= IntToStr(thresholdTrackbar.Position);
      end;
 end;
 
@@ -243,11 +235,6 @@ begin
   end;
 end;
 
-procedure TDIPTools.greenGSButtonClick(Sender: TObject);
-begin
-
-end;
-
 //Enhancement Options
 procedure TDIPTools.enhanceToggleChange(Sender: TObject);
 begin
@@ -281,15 +268,33 @@ begin
   end;
 end;
 
-procedure TDIPTools.blueGSButtonClick(Sender: TObject);
+procedure TDIPTools.binaryExecuteButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  gray: Integer;
 begin
-
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      if gray <= thresholdTrackbar.Position then
+      case (grayscaleRadioGroup.ItemIndex) of
+        0: targetImage.Canvas.Pixels[x, y]:= RGB(255, 0, 0);
+        1: targetImage.Canvas.Pixels[x, y]:= RGB(0, 255, 0);
+        2: targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, 255);
+        3: targetImage.Canvas.Pixels[x, y]:= RGB(0, 0, 0);
+      end
+      else
+        targetImage.Canvas.Pixels[x, y]:= RGB(255, 255, 255);
+    end;
+  end;
 end;
 
 //Trackbars
 procedure TDIPTools.thresholdTrackbarChange(Sender: TObject);
 begin
-  thresholdIndicator.Text:= IntToStr(thresholdTrackbar.Position);
+  thresholdIndicator.Caption:= IntToStr(thresholdTrackbar.Position);
 end;
 
 procedure TDIPTools.brightnessTrackbarChange(Sender: TObject);
