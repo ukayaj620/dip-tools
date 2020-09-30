@@ -74,6 +74,7 @@ type
     procedure binaryExecuteButtonClick(Sender: TObject);
     procedure blueButtonClick(Sender: TObject);
     procedure brightnessButtonClick(Sender: TObject);
+    procedure contrastButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
     procedure grayscaleExecuteButtonClick(Sender: TObject);
@@ -294,10 +295,43 @@ begin
       end
       else if colorModeRadioGroup.ItemIndex = 1 then
       begin
-        gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3
+        gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
         brightnessGray:= pixelBoundariesChecker(gray + brightnessCoef);
 
         targetImage.Canvas.Pixels[x, y]:= RGB(brightnessGray, brightnessGray, brightnessGray);
+      end;
+    end;
+  end;
+end;
+
+procedure TDIPTools.contrastButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  contrastR, contrastG, contrastB: Integer;
+  contrastGray, gray: Integer;
+  gCoef: Integer;
+  contrastCoef: Integer;
+begin
+  contrastCoef:= contrastTrackbar.Position;
+  gCoef:= gValueTrackbar.Position;
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      if colorModeRadioGroup.ItemIndex = 0 then
+      begin
+        contrastR:= pixelBoundariesChecker(gCoef * (bitmapR[x, y] - contrastCoef) + contrastCoef);
+        contrastG:= pixelBoundariesChecker(gCoef * (bitmapG[x, y] - contrastCoef) + contrastCoef);
+        contrastB:= pixelBoundariesChecker(gCoef * (bitmapB[x, y] - contrastCoef) + contrastCoef);
+
+        targetImage.Canvas.Pixels[x, y]:= RGB(contrastR, contrastG, contrastB);
+      end
+      else if colorModeRadioGroup.ItemIndex = 1 then
+      begin
+        gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+        contrastGray:= pixelBoundariesChecker(gCoef * (gray - contrastCoef) + contrastCoef);
+
+        targetImage.Canvas.Pixels[x, y]:= RGB(contrastGray, contrastGray, contrastGray);
       end;
     end;
   end;
@@ -357,12 +391,17 @@ end;
 procedure TDIPTools.inverseButtonClick(Sender: TObject);
 var
   x, y: Integer;
+  gray: Integer;
 begin
   for y:= 0 to imageHeight-1 do
   begin
     for x:= 0 to imageWidth-1 do
     begin
-      targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y]);
+      if colorModeRadioGroup.ItemIndex = 0 then
+        targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y])
+      else
+        gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+        targetImage.Canvas.Pixels[x, y]:= RGB(255-gray, 255-gray, 255-gray);
     end;
   end;
 end;
