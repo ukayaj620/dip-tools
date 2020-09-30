@@ -781,10 +781,10 @@ object DIPTools: TDIPTools
         TabOrder = 3
       end
       object executeButton: TButton
-        Left = 230
+        Left = 232
         Height = 66
-        Top = 182
-        Width = 132
+        Top = 256
+        Width = 142
         Caption = 'Execute'
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
@@ -796,19 +796,12 @@ object DIPTools: TDIPTools
         ParentFont = False
         TabOrder = 4
       end
-      object sketchButton: TButton
-        Left = 230
-        Height = 48
-        Top = 259
-        Width = 132
-        Caption = 'Sketch'
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -18
-        Font.Name = 'Segoe UI'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        ParentFont = False
+      object sketchCheckBox: TCheckBox
+        Left = 232
+        Height = 29
+        Top = 187
+        Width = 114
+        Caption = 'Sketching?'
         TabOrder = 5
       end
     end

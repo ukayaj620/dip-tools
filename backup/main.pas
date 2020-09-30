@@ -17,6 +17,7 @@ type
     binaryExecuteButton: TButton;
     binarySettingsPanel: TPanel;
     brightnessGroup: TGroupBox;
+    sketchCheckBox: TCheckBox;
     grayscaleExecuteButton: TButton;
     inverseButton: TButton;
     inverseGroup: TGroupBox;
@@ -27,7 +28,6 @@ type
     gValueIndicator: TLabel;
     colorModeRadioGroup: TRadioGroup;
     thresholdIndicator: TLabel;
-    sketchButton: TButton;
     executeButton: TButton;
     kernelValue: TEdit;
     kernelLabel: TLabel;
@@ -315,6 +315,9 @@ begin
     end;
 
   end;
+
+  showFilterResult();
+
 end;
 
 procedure TDIPTools.showFilterResult();
@@ -326,9 +329,16 @@ begin
     for x:= 0 to imageWidth-1 do
     begin
       if colorFilterRadioGroup.ItemIndex = 0 then
-        targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterR[x, y], bitmapFilterG[x, y], bitmapFilterB[x, y])
+      begin
+        targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterR[x, y], bitmapFilterG[x, y], bitmapFilterB[x, y]);
+      end
       else if colorFilterRadioGroup.ItemIndex = 1 then
-        targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterGray[x, y], bitmapFilterGray[x, y], bitmapFilterGray[x, y]);
+      begin
+        if (sketchCheckBox.Checked = True) and (filterRadioGroup.ItemIndex = 1) then
+          targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapFilterGray[x, y], 255-bitmapFilterGray[x, y], 255-bitmapFilterGray[x, y])
+        else
+          targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterGray[x, y], bitmapFilterGray[x, y], bitmapFilterGray[x, y]);
+      end;
     end;
   end;
 end;
@@ -526,7 +536,7 @@ begin
     begin
       if colorModeRadioGroup.ItemIndex = 0 then
         targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y])
-      else
+      else if colorModeRadioGroup.ItemIndex = 1 then
         gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
         targetImage.Canvas.Pixels[x, y]:= RGB(255-gray, 255-gray, 255-gray);
     end;
