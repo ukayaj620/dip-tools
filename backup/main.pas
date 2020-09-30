@@ -79,6 +79,7 @@ type
     procedure blueGSButtonClick(Sender: TObject);
     procedure enhanceToggleChange(Sender: TObject);
     procedure colorToggleChange(Sender: TObject);
+    procedure grayscaleButtonClick(Sender: TObject);
     procedure greenButtonClick(Sender: TObject);
     procedure greenGSButtonClick(Sender: TObject);
     procedure gValueTrackbarChange(Sender: TObject);
@@ -221,6 +222,21 @@ begin
        enhancementPanel.Visible:= false;
        thresholdIndicator.Text:= IntToStr(thresholdTrackbar.Position);
      end;
+end;
+
+procedure TDIPTools.grayscaleButtonClick(Sender: TObject);
+var
+  x, y: Integer;
+  gray: Integer;
+begin
+  for y:= 0 to imageHeight-1 do
+  begin
+    for x:= 0 to imageWidth-1 do
+    begin
+      gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      targetImage.Canvas.Pixels[x, y]:= RGB(gray, gray, gray);
+    end;
+  end;
 end;
 
 procedure TDIPTools.greenButtonClick(Sender: TObject);

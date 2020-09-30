@@ -267,6 +267,7 @@ object DIPTools: TDIPTools
         Font.Name = 'Segoe UI'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
+        OnClick = grayscaleButtonClick
         ParentFont = False
         TabOrder = 3
       end
