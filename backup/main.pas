@@ -534,11 +534,13 @@ begin
   begin
     for x:= 0 to imageWidth-1 do
     begin
-      if colorModeRadioGroup.ItemIndex = 0 then
-        targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y])
-      else if colorModeRadioGroup.ItemIndex = 1 then
+      if colorModeRadioGroup.ItemIndex = 1 then
+      begin
         gray:= (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
         targetImage.Canvas.Pixels[x, y]:= RGB(255-gray, 255-gray, 255-gray);
+      end
+      else if colorModeRadioGroup.ItemIndex = 0 then
+        targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y]);
     end;
   end;
 end;
