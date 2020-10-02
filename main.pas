@@ -131,7 +131,7 @@ implementation
 
 { TDIPTools }
 
-//Open file
+// Open file
 procedure TDIPTools.openFileButtonClick(Sender: TObject);
 var
   x: Integer;
@@ -149,6 +149,7 @@ begin
     targetImage.Width:= imageWidth;
     targetImage.Height:= imageHeight;
 
+    // Store the RGB and Grayscale value of loaded image
     for y := 0 to originalImage.Height - 1 do
     begin
       for x := 0 to originalImage.Width - 1 do
@@ -163,6 +164,7 @@ begin
   end;
 end;
 
+// Show the Red Channel of the loaded image in Color mode
 procedure TDIPTools.redButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -176,7 +178,7 @@ begin
   end;
 end;
 
-//Save file
+// Save file
 procedure TDIPTools.saveFileButtonClick(Sender: TObject);
 begin
   if SavePictureDialog.Execute then;
@@ -201,7 +203,7 @@ begin
   end;
 end;
 
-//Color Options
+//Color options
 procedure TDIPTools.colorToggleChange(Sender: TObject);
 begin
   enhanceToggle.Checked:= false;
@@ -219,6 +221,8 @@ begin
      end;
 end;
 
+// This procedure below is to produce processed image with HPF-0,
+// HPF-1, LPF and Sketching methods. The process will be described below.
 procedure TDIPTools.executeButtonClick(Sender: TObject);
 var
   x, y, xK, yK: integer;
@@ -232,9 +236,11 @@ begin
   k:= kernelSize;
   kHalf:= kernelHalf;
 
+  // Initialize kernel and the padding
   initKernel();
   initPadding();
 
+  // CORRELATION METHOD
   if methodRadioGroup.ItemIndex = 0 then
   begin
 
@@ -242,7 +248,7 @@ begin
     begin
       for x:= kHalf to (imageWidth+kHalf) do
       begin
-
+        // Color Mode
         if colorFilterRadioGroup.ItemIndex = 0 then
         begin
           cR:= 0;
@@ -262,6 +268,7 @@ begin
           bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
           bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
         end
+        // Grayscale Mode
         else if colorFilterRadioGroup.ItemIndex = 1 then
         begin
           cGray:= 0;
@@ -279,6 +286,7 @@ begin
     end;
 
   end
+  // CONVOLUTION METHOD
   else if methodRadioGroup.ItemIndex = 1 then
   begin
 
@@ -286,7 +294,7 @@ begin
     begin
       for x:= kHalf to (imageWidth+kHalf) do
       begin
-
+        // Color Mode
         if colorFilterRadioGroup.ItemIndex = 0 then
         begin
           cR:= 0;
@@ -306,6 +314,7 @@ begin
           bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
           bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
         end
+        // Grayscale Mode
         else if colorFilterRadioGroup.ItemIndex = 1 then
         begin
           cGray:= 0;
@@ -324,10 +333,13 @@ begin
 
   end;
 
+  // show filtered image result
   showFilterResult();
 
 end;
 
+// Procedure to show the filtered image result processed using
+// HPF-0, HPF-1, LPF, and Sketching method.
 procedure TDIPTools.showFilterResult();
 var
   x, y: Integer;
@@ -351,6 +363,8 @@ begin
   end;
 end;
 
+// Procedure to processed the Color image to Grayscale,
+// and show the result of the grayscale image based on chosen channel.
 procedure TDIPTools.grayscaleExecuteButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -371,6 +385,7 @@ begin
   end;
 end;
 
+// Show the Green Channel of the loaded image in Color mode
 procedure TDIPTools.greenButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -404,6 +419,7 @@ begin
      end;
 end;
 
+// Show the Blue Channel of the loaded image in Color mode
 procedure TDIPTools.blueButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -417,6 +433,7 @@ begin
   end;
 end;
 
+// Procedure for Brightening technique
 procedure TDIPTools.brightnessButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -449,6 +466,7 @@ begin
   end;
 end;
 
+// Procedure for Contrast technique
 procedure TDIPTools.contrastButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -482,6 +500,8 @@ begin
   end;
 end;
 
+// Procedure to processed the Color image to Binary image,
+// and show the result of the binary image based on chosen channel.
 procedure TDIPTools.binaryExecuteButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -533,6 +553,7 @@ begin
   gValueIndicator.Caption:= IntToStr(gValueTrackbar.Position);
 end;
 
+// Procedure to handle invers image method
 procedure TDIPTools.inverseButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -553,6 +574,10 @@ begin
   end;
 end;
 
+// Procedure to initialize the value of kernel/filter
+// based on the chosen filter method, whether it is
+// HPF-0, HPF-1, or LPF. The kernel is initialized using
+// Mean method.
 procedure TDIPTools.initKernel();
 var
   x, y: Integer;
@@ -586,6 +611,8 @@ begin
   end;
 end;
 
+// Procedure to add padding to the real image, based on the kernel size
+// the padding added to the image is equal to kernel size divided by 2
 procedure TDIPTools.initPadding();
 var
   x, y, z: integer;
