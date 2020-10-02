@@ -94,25 +94,33 @@ type
 
 var
   DIPTools: TDIPTools;
-
+  // Image Width and Height
   imageWidth: Integer;
   imageHeight: Integer;
 
+  // bitmap to store Red, Green, Blue, and Grayscale value
+  // of Real Image (Source Image)
   bitmapR: array [0..1000, 0..1000] of Byte;
   bitmapG: array [0..1000, 0..1000] of Byte;
   bitmapB: array [0..1000, 0..1000] of Byte;
 
   bitmapGray: array[1..1000, 0..1000] of Byte;
 
+  // bitmap to store Red, Green, Blue, and Grayscale value
+  // of Filtered Image Result
   bitmapFilterR: array [0..1000, 0..1000] of Byte;
   bitmapFilterG: array [0..1000, 0..1000] of Byte;
   bitmapFilterB: array [0..1000, 0..1000] of Byte;
 
   bitmapFilterGray: array[1..1000, 0..1000] of Byte;
 
+  // store the bitmap of RGB and Grayscale after padding
+  // which the padding size is equal to Kernel Size divided by 2
   paddingR, paddingG, paddingB: array[0..3000, 0..3000] of Double;
   paddingGray: array[0..3000, 0..3000] of Double;
 
+  // array to store the kernel / filter value
+  // it could store the HPF-0, HPF-1, and LPF kernel value
   kernel: array[0..100, 1..100] of Double;
 
   kernelSize, kernelHalf: Integer;
