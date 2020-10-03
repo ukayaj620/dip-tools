@@ -198,7 +198,7 @@ begin
   begin
     for x:=0 to originalImage.Width-1 do
     begin
-      originalImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
+      targetImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
     end;
   end;
 end;

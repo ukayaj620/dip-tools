@@ -198,7 +198,7 @@ begin
   begin
     for x:=0 to originalImage.Width-1 do
     begin
-      originalImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
+      targetImage.Canvas.Pixels[x,y] := RGB(bitmapR[x,y], bitmapG[x,y], bitmapB[x,y]);
     end;
   end;
 end;
@@ -236,9 +236,11 @@ begin
   k:= kernelSize;
   kHalf:= kernelHalf;
 
+  // Initialize kernel and the padding
   initKernel();
   initPadding();
 
+  // CORRELATION METHOD
   if methodRadioGroup.ItemIndex = 0 then
   begin
 
@@ -246,7 +248,7 @@ begin
     begin
       for x:= kHalf to (imageWidth+kHalf) do
       begin
-
+        // Color Mode
         if colorFilterRadioGroup.ItemIndex = 0 then
         begin
           cR:= 0;
@@ -266,6 +268,7 @@ begin
           bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
           bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
         end
+        // Grayscale Mode
         else if colorFilterRadioGroup.ItemIndex = 1 then
         begin
           cGray:= 0;
@@ -283,6 +286,7 @@ begin
     end;
 
   end
+  // CONVOLUTION METHOD
   else if methodRadioGroup.ItemIndex = 1 then
   begin
 
@@ -290,7 +294,7 @@ begin
     begin
       for x:= kHalf to (imageWidth+kHalf) do
       begin
-
+        // Color Mode
         if colorFilterRadioGroup.ItemIndex = 0 then
         begin
           cR:= 0;
@@ -310,6 +314,7 @@ begin
           bitmapFilterG[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cG));
           bitmapFilterB[x-kHalf, y-kHalf]:= pixelBoundariesChecker(Round(cB));
         end
+        // Grayscale Mode
         else if colorFilterRadioGroup.ItemIndex = 1 then
         begin
           cGray:= 0;
@@ -328,6 +333,7 @@ begin
 
   end;
 
+  // show filtered image result
   showFilterResult();
 
 end;
@@ -547,6 +553,7 @@ begin
   gValueIndicator.Caption:= IntToStr(gValueTrackbar.Position);
 end;
 
+// Procedure to handle invers image method
 procedure TDIPTools.inverseButtonClick(Sender: TObject);
 var
   x, y: Integer;
@@ -567,6 +574,10 @@ begin
   end;
 end;
 
+// Procedure to initialize the value of kernel/filter
+// based on the chosen filter method, whether it is
+// HPF-0, HPF-1, or LPF. The kernel is initialized using
+// Mean method.
 procedure TDIPTools.initKernel();
 var
   x, y: Integer;
@@ -600,6 +611,8 @@ begin
   end;
 end;
 
+// Procedure to add padding to the real image, based on the kernel size
+// the padding added to the image is equal to kernel size divided by 2
 procedure TDIPTools.initPadding();
 var
   x, y, z: integer;
