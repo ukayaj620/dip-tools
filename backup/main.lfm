@@ -1,7 +1,7 @@
 object DIPTools: TDIPTools
-  Left = 258
+  Left = 483
   Height = 800
-  Top = 19
+  Top = 145
   Width = 1257
   Caption = 'DIPTools'
   ClientHeight = 800

@@ -348,14 +348,18 @@ begin
   begin
     for x:= 0 to imageWidth-1 do
     begin
+      // Color Mode
       if colorFilterRadioGroup.ItemIndex = 0 then
       begin
         targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterR[x, y], bitmapFilterG[x, y], bitmapFilterB[x, y]);
       end
+      // Grayscale (Monochrome) Mode
       else if colorFilterRadioGroup.ItemIndex = 1 then
       begin
+        // Sketching is True (For sketching, choose Monochrome, HPF-0, and Tick the Sketching checkbox)
         if (sketchCheckBox.Checked = True) and (filterRadioGroup.ItemIndex = 1) then
           targetImage.Canvas.Pixels[x, y]:= RGB(255-bitmapFilterGray[x, y], 255-bitmapFilterGray[x, y], 255-bitmapFilterGray[x, y])
+        // No sketching
         else
           targetImage.Canvas.Pixels[x, y]:= RGB(bitmapFilterGray[x, y], bitmapFilterGray[x, y], bitmapFilterGray[x, y]);
       end;
