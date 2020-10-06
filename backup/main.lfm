@@ -1,11 +1,11 @@
 object DIPTools: TDIPTools
-  Left = 483
+  Left = 424
   Height = 800
-  Top = 145
-  Width = 1257
+  Top = 159
+  Width = 1150
   Caption = 'DIPTools'
   ClientHeight = 800
-  ClientWidth = 1257
+  ClientWidth = 1150
   DesignTimePPI = 120
   LCLVersion = '2.0.10.0'
   object fileGroup: TGroupBox
@@ -86,7 +86,7 @@ object DIPTools: TDIPTools
     Center = True
   end
   object targetImage: TImage
-    Left = 712
+    Left = 717
     Height = 350
     Top = 384
     Width = 400
@@ -746,6 +746,7 @@ object DIPTools: TDIPTools
           'Color'
           'Monochrome'
         )
+        OnClick = sketchCheck
         ParentFont = False
         TabOrder = 1
       end
@@ -782,7 +783,7 @@ object DIPTools: TDIPTools
         TabOrder = 2
       end
       object methodRadioGroup: TRadioGroup
-        Left = 192
+        Left = 193
         Height = 86
         Top = 40
         Width = 120
@@ -834,6 +835,7 @@ object DIPTools: TDIPTools
         Top = 156
         Width = 98
         Caption = 'Sketching?'
+        Enabled = False
         Font.CharSet = ANSI_CHARSET
         Font.Color = clBlack
         Font.Height = -15
