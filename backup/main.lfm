@@ -779,6 +779,7 @@ object DIPTools: TDIPTools
           'High Pass Filter - 0'
           'High Pass Filter - 1'
         )
+        OnClick = sketchCheck
         ParentFont = False
         TabOrder = 2
       end
@@ -810,6 +811,7 @@ object DIPTools: TDIPTools
           'Correlation'
           'Convolution'
         )
+        OnClick = sketchCheck
         ParentFont = False
         TabOrder = 3
       end
