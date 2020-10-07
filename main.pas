@@ -662,8 +662,7 @@ end;
 procedure TDIPTools.sketchCheck(Sender: TObject);
 begin
   if (colorFilterRadioGroup.ItemIndex = 1) AND
-     (filterRadioGroup.ItemIndex = 1) AND
-     (methodRadioGroup.ItemIndex = 1) then
+     (filterRadioGroup.ItemIndex = 1) then
   begin
     sketchCheckBox.Enabled:= true;
   end
